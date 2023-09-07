@@ -7,13 +7,14 @@
     9.11，20：00前——完成论文与支撑材料的上传，必须与md5码相匹配,因此必须备份
     
 ## 文件结构说明
+### 文件（夹）描述
     'cumcmthesis.cls'是模板文件，'documentclass'中调用
     'example.pdf'是模板例子的生成文件，可供参考
     'example.tex'是模板的初始tex文件，可供参考
     'example'后续需要修改为论文标题
     'figures'文件夹存放需要用到的图片
     'original template'文件夹存放模板的原始文件
-### Tex模板说明
+### Tex模板'cumcmthesis.cls'说明
     模板中有已定义环境如定理、推论等
     文献引用使用'bibitem'形式
     表格使用三线表，'tabular'形式
