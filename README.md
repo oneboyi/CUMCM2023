@@ -14,6 +14,9 @@
     'example'后续需要修改为论文标题
     'figures'文件夹存放需要用到的图片
     'original template'文件夹存放模板的原始文件
+    'data'文件夹用于存放数据
+    'sourcecodes'文件夹用于存放源代码
+    'sourcecodes'&'data'最终合并为'支撑材料'文件夹
 ### Tex模板'cumcmthesis.cls'说明
     模板中有已定义环境如定理、推论等
     文献引用使用'bibitem'形式
