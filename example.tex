@@ -22,35 +22,35 @@
  \maketitle
  \begin{abstract}
 cumcmthesis是为全国大学生数学建模竞赛编写的\LaTeX{}模板, 旨在让大家专注于 论文的内容写作, 而不用花费过多精力在格式的定制和调整上. 本手册是相应的参考, 其 中提供了一些环境和命令可以让模板的使用更为方便. 同时需要注意, 使用者需要有一 定的 \LaTeX{} 的使用经验, 至少要会使用常用宏包的一些功能, 比如参考文献，数学公式，图片使用，列表环境等等. 例子文件参看 \texttt{example.tex}.
-laskdjfkasdf
-\begin{mdframed} [%
-	roundcorner=5pt,
-	linecolor=gray!50,
-	outerlinewidth=0.5pt,
-	middlelinewidth=0.3pt, backgroundcolor=gray!2,
-innertopmargin=\topskip, frametitle={2020 年建模比赛格式变化说明},
-frametitlefont= \bfseries,frametitlerule=true,frametitlealignment =\raggedright\noindent,
-frametitlerulewidth=.5pt, frametitlebackgroundcolor=gray!2,]
-今年的格式变化主要就是三个地方，如下：
-\begin{enumerate}
-\item 论文第一页为承诺书，\textbf{\color{red}内容进行了调整}。
 
-\item 编号页格式进行了格式调整。
+% % \begin{mdframed} [%
+% % 	roundcorner=5pt,
+% % 	linecolor=gray!50,
+% % 	outerlinewidth=0.5pt,
+% % 	middlelinewidth=0.3pt, backgroundcolor=gray!2,
+% % innertopmargin=\topskip, frametitle={2020 年建模比赛格式变化说明},
+% % frametitlefont= \bfseries,frametitlerule=true,frametitlealignment =\raggedright\noindent,
+% % frametitlerulewidth=.5pt, frametitlebackgroundcolor=gray!2,]
+% % 今年的格式变化主要就是三个地方，如下：
+% % \begin{enumerate}
+% % \item 论文第一页为承诺书，\textbf{\color{red}内容进行了调整}。
 
-\item 这是19年调整了，这里延续说明下。论文正文（\textbf{\color{red}不要目录}，尽量控制在20页以内）；正文之后是论文附录（页数不限）。
+% % \item 编号页格式进行了格式调整。
 
-\end{enumerate}
+% % \item 这是19年调整了，这里延续说明下。论文正文（\textbf{\color{red}不要目录}，尽量控制在20页以内）；正文之后是论文附录（页数不限）。
 
-\end{mdframed}
+% % \end{enumerate}
+
+% % \end{mdframed}
 
 
-\url{https://www.latexstudio.net} 陆续推出了更优质的资源，欢迎学习 。
+% \url{https://www.latexstudio.net} 陆续推出了更优质的资源，欢迎学习 。
 
-欢迎大家到QQ群里沟通交流：91940767/478023327/640633524。我们也开通了问答区交流 \LaTeX{}技术：\url{https://ask.latexstudio.net}，欢迎大家前来交流，有问题就来这里，与大神零距离。
+% 欢迎大家到QQ群里沟通交流：91940767/478023327/640633524。我们也开通了问答区交流 \LaTeX{}技术：\url{https://ask.latexstudio.net}，欢迎大家前来交流，有问题就来这里，与大神零距离。
 
-\uwave{关注我们的微信公众号}：
+% \uwave{关注我们的微信公众号}：
 
-\centerline{\includegraphics[width=6cm]{gongzhonghao2}}
+% \centerline{\includegraphics[width=6cm]{gongzhonghao2}}
 
 \keywords{\TeX{}\quad  图片\quad   表格\quad  公式}
 \end{abstract}
@@ -198,6 +198,14 @@ frametitlerulewidth=.5pt, frametitlebackgroundcolor=gray!2,]
     \end{minipage}
     \caption{多图并排示例}
 \end{figure}
+\section{符号说明}
+        \begin{center}
+            \begin{tabular}{cc}
+                \hline
+                \makebox[0.3\textwidth][c]{符号}	&  \makebox[0.4\textwidth][c]{意义} \\ \hline
+                D	    & 木条宽度（cm） \\ \hline
+            \end{tabular}
+        \end{center}
 
 \section{绘制普通三线表格}
 表格应具有三线表格式，因此常用 booktabs宏包，其标准格式如\cref{tab:001}~所示。
