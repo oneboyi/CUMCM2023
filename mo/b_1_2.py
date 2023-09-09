@@ -3,10 +3,12 @@ from math import *
 
 # 定义已知参数
 alpha = 1.5  # 角度值，例如30度
-beta =radians(50)   # 弧度值，例如45
+beta =radians(30)   # 弧度值，例如45
 Dc = 110  # 海域中心距离，例如10000米
 
-eta = 0.15
+eta = 0.20
+sum = 0
+d_i0 = 0
 sumSN = 0
 sumWE = 0
 o = 0
@@ -34,24 +36,31 @@ def calculate_d_i(D1, d, gamma_0, i):
 #覆盖范围W_i
 def calculate_W_i(D_i, gamma_0):
     a_1 = gamma_0 * math.sin(math.radians(60)) * math.cos(gamma_0) * (
-        1 / math.sin(math.radians(gamma_0 + 30)) + 1 / math.sin(math.radians(30 - gamma_0))
+        1 / math.sin(gamma_0 + math.radians(30)) + 1 / math.sin(math.radians(30) - atan(gamma_0))
     )
     b_1 = D1 * math.sin(math.radians(60)) * math.cos(gamma_0) * (
-        1 / math.sin(math.radians(gamma_0 + 30)) + 1 / math.sin(math.radians(30 - gamma_0))
+        1 / math.sin(gamma_0 + math.radians(30)) + 1 / math.sin(math.radians(30) - atan(gamma_0))
     )
     W_i = (D_i * math.sin(math.radians(60)) * math.cos(gamma_0) * (
-        1 / math.sin(math.radians(gamma_0 + 30)) + 1 / math.sin(math.radians(30 - gamma_0))
+        1 / math.sin(gamma_0 + math.radians(30)) + 1 / math.sin(math.radians(30) - atan(gamma_0))
     ))
     return W_i
 
 
+    
 
 a_1 = calculate_tangamma_0(alpha, beta) * math.sin(math.radians(60)) * math.cos(calculate_tangamma_0(alpha, beta)) * (
-        1 / math.sin(math.radians(calculate_tangamma_0(alpha, beta) + 30)) + 1 / math.sin(math.radians(30 - calculate_tangamma_0(alpha, beta))))
+        1 / math.sin(calculate_tangamma_0(alpha, beta) + math.radians(30)) + 1 / math.sin(math.radians(30) - calculate_tangamma_0(alpha, beta)))
 
 b_1 = D1 * math.sin(math.radians(60)) * math.cos(calculate_tangamma_0(alpha, beta)) * (
-        1 / math.sin(math.radians(calculate_tangamma_0(alpha, beta) + 30)) + 1 / math.sin(math.radians(30 - calculate_tangamma_0(alpha, beta))))
+        1 / math.sin(atan(calculate_tangamma_0(alpha, beta)) + math.radians(30)) + 1 / math.sin(math.radians(30) - atan(calculate_tangamma_0(alpha, beta))))
 gamma_0 =  calculate_tangamma_0(alpha, beta)
+
+def calculate_eta(d,gamma, s):
+    a_1 = gamma * math.sin(math.radians(60)) * math.cos(atan(gamma_0)) * (
+        1 / math.sin(atan(gamma) + math.radians(30)) + 1 / math.sin(math.radians(30) - atan(gamma_0)))
+    eta = 1- (d*cos(atan(gamma)))/(2*(a_1*s+b_1)*sin(150-atan(gamma)))
+    return eta
 i = 1
 #if beta == 90:
 
@@ -65,9 +74,13 @@ if 0<beta and beta<90:
         while sumSN <= 2*1852:
             d_i = (2 * (b_1 * math.sin(radians(150) - gamma_0))) / (
                 cos(gamma_0) - sin(radians(150) - gamma_0) * 2 * (1 - eta) * a_1 * i)
+            if i>1:
+                eta=late_eta(d_i0,gamma,sum)
             L += sumSN/math.sin(beta)
             sumSN += d_i/cos(beta)
             sumWE += d_i/sin(beta)
+            d_i0 = d_i
+            sum += d_i
             i+=1
 
         while sumWE <= 4 * 1852:
