@@ -75,7 +75,9 @@ if 0<beta and beta<90:
             d_i = (2 * (b_1 * math.sin(radians(150) - gamma_0))) / (
                 cos(gamma_0) - sin(radians(150) - gamma_0) * 2 * (1 - eta) * a_1 * i)
             if i>1:
-                eta=late_eta(d_i0,gamma,sum)
+                eta=calculate_eta(d_i0,gamma_0,sum)
+                if eta > 0.2 or eta <0.1:
+                    return 0
             L += sumSN/math.sin(beta)
             sumSN += d_i/cos(beta)
             sumWE += d_i/sin(beta)
