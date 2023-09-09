@@ -1,18 +1,5 @@
-import  math
+import math
 from math import *
-
-# 定义已知参数
-alpha = 1.5  # 角度值，例如30度
-#beta =radians(30)   # 弧度值，例如45
-Dc = 110  # 海域中心距离，例如10000米
-
-eta = 0.20
-sum = 0
-d_i0 = 0
-sumSN = 0
-sumWE = 0
-o = 0
-L = 0 #总长度
 def calculate_gamma_0(alpha, beta_0):
     tangamma_0 = abs(math.tan(math.radians(alpha)) * math.sin(math.radians(180 - beta_0)))
     return tangamma_0
@@ -61,25 +48,29 @@ def calculate_eta(d,gamma, s):
         1 / math.sin(atan(gamma) + math.radians(30)) + 1 / math.sin(math.radians(30) - atan(gamma_0)))
     eta = 1- (d*cos(atan(gamma)))/(2*(a_1*s+b_1)*sin(150-atan(gamma)))
     return eta
-i = 1
 
-def calculate_length(beta, ):
+
+def calculate_length(beta, d_0):
     if 0<beta and beta<90:
         if math.tan(beta)>0.5:
+            d_1 = d_0
+            sum = d_1
             sumSN = math.sqrt(3)*D0/math.cos(beta)
             sumWE = math.sqrt(3)*D0/math.sin(beta)
-            i = 1
+            d_2 = d_1
+            eta = calculate_eta(d_1,gamma_0,sum)
+            sum += d_2
+            i = 2
             while sumSN <= 2*1852:
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma_0))) / (
                     cos(gamma_0) - sin(radians(150) - gamma_0) * 2 * (1 - eta) * a_1 * i)
-                if i>1:
-                    eta=calculate_eta(d_i0,gamma_0,sum)
-                    if eta > 0.2 or eta <0.1:
-                        return 0
+                eta=calculate_eta(d_2,gamma_0,sum)
+                if eta > 0.2 or eta <0.1:
+                    return 0
                 L += sumSN/math.sin(beta)
                 sumSN += d_i/cos(beta)
                 sumWE += d_i/sin(beta)
-                d_i0 = d_i
+                d_2 = d_i
                 sum += d_i
                 i+=1
 
@@ -138,4 +129,3 @@ def calculate_length(beta, ):
             sumWE += o
             if sumWE>(sqrt(3)*d_max)/cos(beta):
                 L += (sqrt(3)*d_max)/(cos(beta)*sin(beta))
-print(L)
