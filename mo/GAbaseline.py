@@ -247,12 +247,10 @@ def enhanced_genetic_algorithm_continuous_coverage():
             for j in range(i):
                 if fitness_values[i][0] < fitness_values[j][0]:
                     fitness_values[i],fitness_values[j] = fitness_values[j],fitness_values[i]
-                    population[i],population[j] = population[j],population[i]
-        
         elite_indices = fitness_values[-elite_size:]
         for i in elite_indices:
-            print(population[i[1]] )
-        new_population = [population[i[1]] for i in elite_indices]
+            new_population=[] 
+            new_population.append(population[i[1]])
         while len(new_population) < population_size:
             parents = np.argsort(fitness_values)[-2:]
             child1, child2 = crossover(population[parents[0]], population[parents[1]])
