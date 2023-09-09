@@ -106,8 +106,8 @@ def calculate_length(beta, d_0, Dc):
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma0(beta)))) / (
                         cos(gamma0(beta)) - sin(radians(150) - gamma0(beta)) * 2 * (1 - eta) * a_1 * i)
                 eta = calculate_eta(d_2, gamma0(beta), sum, beta)
-                if eta > 0.2 or eta < 0.1:
-                    return 0
+                # if eta > 0.2 or eta < 0.1:
+                #     return 0
                 L += sumSN / math.sin(beta)
                 sumSN += d_i / cos(beta)
                 sumWE += d_i / sin(beta)
@@ -120,8 +120,8 @@ def calculate_length(beta, d_0, Dc):
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma0(beta)))) / (
                         cos(gamma0(beta)) - sin(radians(150) - gamma0(beta)) * 2 * (1 - eta) * a_1 * i)
                 eta = calculate_eta(d_2, gamma0(beta), sum, beta)
-                if eta > 0.2 or eta < 0.1:
-                    return 0
+                # if eta > 0.2 or eta < 0.1:
+                #     return 0
                 sumSN += d_i / cos(beta)
                 sumWE += d_i / sin(beta)
                 d_2 = d_i
@@ -136,8 +136,8 @@ def calculate_length(beta, d_0, Dc):
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma0(beta)))) / (
                         cos(gamma0(beta)) - sin(radians(150) - gamma0(beta)) * 2 * (1 - eta) * a_1 * i)
                 eta = calculate_eta(d_2, gamma0(beta), sum, beta)
-                if eta > 0.2 or eta < 0.1:
-                    return 0
+                # if eta > 0.2 or eta < 0.1:
+                #     return 0
                 sumSN -= d_i / cos(beta)
                 sumWE -= d_i / sin(beta)
                 o = d_i / sin(beta)
@@ -160,8 +160,8 @@ def calculate_length(beta, d_0, Dc):
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma0(beta)))) / (
                         cos(gamma0(beta)) - sin(radians(150) - gamma0(beta)) * 2 * (1 - eta) * a_1 * i)
                 eta = calculate_eta(d_2, gamma0(beta), sum, beta)
-                if eta > 0.2 or eta < 0.1:
-                    return 0
+                # if eta > 0.2 or eta < 0.1:
+                #     return 0
                 L += sumSN / math.sin(beta)
                 sumSN += d_i / cos(beta)
                 sumWE += d_i / sin(beta)
@@ -173,8 +173,8 @@ def calculate_length(beta, d_0, Dc):
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma0(beta)))) / (
                         cos(gamma0(beta)) - sin(radians(150) - gamma0(beta)) * 2 * (1 - eta) * a_1 * i)
                 eta = calculate_eta(d_2, gamma0(beta), sum, beta)
-                if eta > 0.2 or eta < 0.1:
-                    return 0
+                # if eta > 0.2 or eta < 0.1:
+                #     return 0
                 sumSN += d_i / cos(beta)
                 sumWE += d_i / sin(beta)
                 d_2 = d_i
@@ -189,8 +189,8 @@ def calculate_length(beta, d_0, Dc):
                 d_i = (2 * (b_1 * math.sin(radians(150) - gamma0(beta)))) / (
                         cos(gamma0(beta)) - sin(radians(150) - gamma0(beta)) * 2 * (1 - eta) * a_1 * i)
                 eta = calculate_eta(d_2, gamma0(beta), sum, beta)
-                if eta > 0.2 or eta < 0.1:
-                    return 0
+                # if eta > 0.2 or eta < 0.1:
+                #     return 0
                 sumWE -= d_i / sin(beta)
                 sumSN -= d_i / cos(beta)
                 o = d_i / sin(beta)
@@ -233,7 +233,7 @@ def initialize_population():
         angle = np.random.randint(1000, 89000)
         d = np.random.randint(45000,63000)
         one=[]
-        one.append(angle/1000)
+        one.append(radians(angle/1000))
         one.append(d/1000)
         initial_population.append(one)
     return np.array(initial_population)
@@ -242,8 +242,16 @@ def enhanced_genetic_algorithm_continuous_coverage():
     population = initialize_population()
     for generation in range(num_generations):
         fitness_values = [fitness_continuous_coverage(chromo,index) for index,chromo in enumerate(population)]
-
-        elite_indices = np.argsort(fitness_values[:][0])[-elite_size:]
+        length = len(fitness_values)
+        for i in range(length):
+            for j in range(i):
+                if fitness_values[i][0] < fitness_values[j][0]:
+                    fitness_values[i],fitness_values[j] = fitness_values[j],fitness_values[i]
+                    population[i],population[j] = population[j],population[i]
+        
+        elite_indices = fitness_values[-elite_size:]
+        for i in elite_indices:
+            print(population[i[1]] )
         new_population = [population[i[1]] for i in elite_indices]
         while len(new_population) < population_size:
             parents = np.argsort(fitness_values)[-2:]
