@@ -213,8 +213,7 @@ def fitness_continuous_coverage(chromosome,index):
 
 
 def crossover(parent1, parent2):
-    print(len(parent1))
-    print(len(parent2))
+    # print(len(parent1))
     idx = np.random.randint(1, len(parent1)-1)
     child1 = np.concatenate((parent1[:idx], parent2[idx:]))
     child2 = np.concatenate((parent2[:idx], parent1[idx:]))
@@ -230,16 +229,20 @@ def adaptive_mutation(chromosome, fitness_value):
 def initialize_population():
     initial_population = []
     for _ in range(population_size):
-        angle = np.random.randint(1000, 89000)
-        d = np.random.randint(45000,63000)
-        one=[]
-        one.append(radians(angle/1000))
-        one.append(d/1000)
-        initial_population.append(one)
+        line=[]
+        for _ in range(22):
+            angle = np.random.randint(1000, 89000)
+            d = np.random.randint(45000, 63000)
+            one = []
+            one.append(radians(angle / 1000))
+            one.append(d / 1000)
+            line.append(one)
+        initial_population.append(line)
     return np.array(initial_population)
 
 def enhanced_genetic_algorithm_continuous_coverage():
     population = initialize_population()
+    print(population.shape)
     for generation in range(num_generations):
         fitness_values = [fitness_continuous_coverage(chromo,index) for index,chromo in enumerate(population)]
         length = len(fitness_values)
@@ -248,12 +251,22 @@ def enhanced_genetic_algorithm_continuous_coverage():
                 if fitness_values[i][0] < fitness_values[j][0]:
                     fitness_values[i],fitness_values[j] = fitness_values[j],fitness_values[i]
         elite_indices = fitness_values[-elite_size:]
+        new_population = []
         for i in elite_indices:
-            new_population=[] 
+
             new_population.append(population[i[1]])
         while len(new_population) < population_size:
-            parents = np.argsort(fitness_values)[-2:]
-            child1, child2 = crossover(population[parents[0]], population[parents[1]])
+            length1 = len(fitness_values)
+            for i in range(length1):
+                for j in range(i):
+                    if fitness_values[i][0] < fitness_values[j][0]:
+                        fitness_values[i], fitness_values[j] = fitness_values[j], fitness_values[i]
+            parents = fitness_values[-2:]
+            parents0=parents[0][1]
+            parents1=parents[1][1]
+            # print(fitness_values[-2:],fitness_values[-2:][1])
+            # print(parents0,parents1)
+            child1, child2 = crossover(population[parents0], population[parents1])
             new_population.extend([child1, child2])
             for chromo in new_population[-2:]:
                 adaptive_mutation(chromo, fitness_continuous_coverage(chromo))
