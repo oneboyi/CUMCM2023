@@ -119,24 +119,195 @@ d和$\eta$可以相互表示，所以最终需要进行优化的参数是$\beta$
 \end{center}
 \section{模型的建立和求解}
 \subsection{公式粘贴}
-$\frac{a}{b}$
 问题一
 $$
-D=70-d_c\tan \left( \alpha \right)
-\\\\
-W=\left( l_{i1}+l_{i2} \right) \cdot \cos \alpha 
+D=70-d_c\tan \left( \alpha \right) 
+$$ 
 $$
-% \begin{align}
-%     D=70-d_c\tan \left( \alpha \right) 
-%     \\
-    
-%     \\
-%     \frac{l_{i2}}{\sin 60\degree}=\frac{D}{\sin 31.5\degree}
-%     \\
-%     W=\left( l_{i1}+l_{i2} \right) \cdot \cos \alpha 
-%     \\
-%     \eta =1-\frac{d\cdot \cos \alpha}{2\cdot W\cdot \sin 148.5\degree}
-% \end{align}    
+\frac{l_{i1}}{\sin 60^{\circ}}=\frac{D}{\sin 28.5^{\circ}}
+$$ 
+$$
+\frac{l_{i2}}{\sin 60^{\circ}}=\frac{D}{\sin 31.5^{\circ}}
+$$ 
+$$
+W=\left( l_{i1}+l_{i2} \right) \cdot \cos \alpha 
+$$ 
+$$
+\eta =1-\frac{d\cdot \cos \alpha}{2\cdot W\cdot \sin 148.5^{\circ}}
+$$ 
+第二问
+$$
+\tan \gamma =\left| \tan \alpha \cdot \cos \left( 180^{\circ}-\beta \right) \right|
+$$ 
+$$
+\tan \gamma \prime=\left| \tan \alpha \cdot \sin \left( 180^{\circ}-\beta \right) \right|
+$$ 
+$$
+D=\begin{cases}
+	120-1852\cdot d_c\tan \gamma , \beta \in \left[ \frac{\pi}{2},\frac{3\pi}{2} \right]\\
+	120+1852\cdot d_c\tan \gamma , \beta \in \left[ 0,\frac{\pi}{2} \right] \cup \left[ \frac{3}{2}\pi ,2\pi \right]\\
+\end{cases}
+$$ 
+$$
+\frac{l_{i1}}{\sin 60^{\circ}}=\frac{D}{\sin \left( 30-\gamma \prime \right)}
+$$ 
+$$
+\frac{l_{i2}}{\sin 60^{\circ}}=\frac{D}{\sin \left( 30+\gamma \prime \right)}
+$$ 
+$$
+W=\left( l_{i1}+l_{i2} \right) \cos \gamma \prime
+$$ 
+$$
+\eta =1-\frac{d\cdot \cos \gamma \prime}{2W\cdot \sin \left( 150-\gamma \prime \right)}
+$$ 
+第三问
+$$
+\varGamma \left( \beta \right) =\sin 60^{\circ}\cdot \left( \frac{1}{\sin \left( 30^{\circ}-\mathrm{arc}\tan \left| \tan \alpha \sin \left( 180^{\circ}-\beta \right) \right| \right)}+\frac{1}{\sin \left( 30^{\circ}+\mathrm{arc}\tan \left| \tan \alpha \sin \left( 180^{\circ}-\beta \right) \right| \right)} \right) 
+$$
+$$
+D_{\min}=D_0=D_c-\sqrt{5}\cdot 1852\cdot \left| \tan \alpha \cdot \cos \left( \mathrm{arc}\tan \frac{1}{2} \right) \right|
+$$
+$$
+D_{\max}=D_c+\sqrt{5}\cdot 1852\cdot \left| \tan \alpha \cdot \cos \left( \mathrm{arc}\tan \frac{1}{2} \right) \right|
+$$
+$$
+\tan \gamma _0=\left| \tan \alpha \cdot \sin \left( 180^{\circ}-\beta \right) \right|
+$$
+$$
+D_1=D_0+\sqrt{3}D_0\cdot \tan \gamma _0
+$$
+$$
+W_1=D_1\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+D_2=D_1+d\cdot \tan \gamma _0
+$$
+$$
+W_2=D_2\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+D_i=D_1+\left( i-1 \right) \cdot d\cdot \tan \gamma _0, i=2,3,4,...
+$$
+$$
+W_i=D_i\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+W_i=\left( D_1+\left( i-1 \right) \cdot d\cdot \tan \gamma _0 \right) \cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+a_1=\tan \gamma _0\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+b_1=D_1\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+\eta _i=1-\frac{d\cos \gamma _0}{2\left( a_1\cdot \left( i-1 \right) \cdot d+b_1 \right) \cdot \sin \left( 150-\gamma _0 \right)},i=2,3,4,...
+$$
+$$
+\eta _1\geqslant 0.1,\eta _n\leqslant 0.2
+$$
+$$
+d_I=\frac{\sqrt{3}D_0}{\left| \cos \beta \right|}
+$$
+$$
+n_I=\lfloor \frac{2\times 1852-d_I}{\small{{{d}\Bigg/{\left| \cos \beta \right|}}}} \rfloor +1
+$$
+$$
+l_1=\frac{d_I}{\left| \sin \beta \right|}=\frac{\sqrt{3}D_0}{\left| \sin \beta \right|\cdot \left| \cos \beta \right|}
+$$
+$$
+\varDelta l_Ⅰ=d\cdot \left( \left| \tan \beta \right|+\left| \cot \beta \right| \right) 
+$$
+$$
+L_Ⅰ=\sum_{i=1}^{n_Ⅰ}{l_i}=n_Ⅰ\cdot l_1+\frac{n_Ⅰ\cdot \left( n_Ⅰ-1 \right)}{2}\cdot \varDelta l_Ⅰ
+$$
+$$
+L_Ⅰ=\frac{\left( 2\sqrt{3}D_0+\left( n_Ⅰ-1 \right) \cdot d \right) n_Ⅰ}{\left| \sin \left( 2\beta \right) \right|}
+$$
+$$
+d_Ⅱ=4\times 1852-\frac{\sqrt{3}D_0}{\left| \sin \beta \right|}-n_I\cdot \frac{d}{\left| \sin \beta \right|}
+$$
+$$
+d_Ⅱ=2\times 1852-\frac{\sqrt{3}D_0}{\left| \cos \beta \right|}-n_I\cdot \frac{d}{\left| \cos \beta \right|}
+$$
+$$
+n_Ⅱ=\lfloor \frac{d_Ⅱ}{\small{{{d}\Bigg/{\left| \sin \beta \right|}}}} \rfloor +1
+$$
+$$
+n_Ⅱ=\lfloor \frac{d_Ⅱ}{\small{{{d}\Bigg/{\left| \cos \beta \right|}}}} \rfloor +1
+$$
+$$
+L_{II}=n_Ⅱ\cdot \frac{2\times 1852}{\left| \sin \beta \right|}
+$$
+$$
+L_{II}=n_Ⅱ\cdot \frac{4\times 1852}{\left| \cos \beta \right|}
+$$
+$$
+d_Ⅲ=\left| \cot \beta \right|\cdot \left( n_Ⅱ\cdot \frac{d}{\left| \sin \beta \right|}-d_Ⅱ \right) 
+$$
+$$
+d_Ⅲ=\left| \tan \beta \right|\cdot \left( n_Ⅱ\cdot \frac{d}{\left| \cos \beta \right|}-d_Ⅱ \right) 
+$$
+$$
+n_Ⅲ=\lfloor \frac{2\times 1852-d_Ⅲ}{{{d}\Bigg/{\left| \cos \beta \right|}}} \rfloor +1
+$$
+$$
+n_Ⅲ=\lfloor \frac{4\times 1852-d_Ⅲ}{{{d}\Bigg/{\left| \sin \beta \right|}}} \rfloor +1
+$$
+$$
+l_{n_Ⅰ+n_Ⅱ+1}=\frac{2\times 1852-d_Ⅲ}{\left| \sin \beta \right|}
+$$
+$$
+l_{n_Ⅰ+n_Ⅱ+1}=\frac{2\times 1852-d_Ⅲ}{\left| \sin \beta \right|}
+$$
+$$
+\varDelta l_Ⅲ=-d\cdot \left( \left| \tan \beta \right|+\left| \cot \beta \right| \right) 
+$$
+$$
+l_{n_Ⅰ+n_Ⅱ+i}=l_{n_Ⅰ+n_Ⅱ+1}+\left( i-1 \right) \cdot \varDelta l_Ⅲ
+$$
+$$
+L_Ⅲ=n_Ⅲ\cdot l_{n_Ⅰ+n_Ⅱ+1}+\frac{n_Ⅲ\cdot \left( n_Ⅲ-1 \right)}{2}\cdot \varDelta l_Ⅲ
+$$
+$$
+n_Ⅲ=\begin{cases}
+	n_Ⅲ, 2\times 1852-d_Ⅲ-\left( n_Ⅲ-1 \right) \cdot \frac{d}{\left| \cos \beta \right|}<\frac{\sqrt{3}D_{\max}}{\cos \beta}\\
+	n_Ⅲ+1, else\\
+\end{cases}
+$$
+% $$
+% L_Ⅲ=\left\\begin{array}{l}
+% 	L_Ⅲ, 2\times 1852-d_Ⅲ-\left( n_Ⅲ-1 \right) \cdot \frac{d}{\left| \cos \beta \right|}<\frac{\sqrt{3}D_{\max}}{\cos \beta}\\
+% 	L_Ⅲ+\frac{\sqrt{3}D_{\max}}{\left| \sin \beta \right|\left| \cos \beta \right|}, else\\
+% \end{array} \right. 
+% $$
+$$
+d_i=\frac{2\left( a_1\cdot b_1\cdot \sum_{k=1}^{i-1}{d_k} \right) \sin \left( 150^{\circ}-\gamma _0 \right)}{\cos \gamma _0-\sin \left( 150^{\circ}-\gamma _0 \right) \cdot 2\left( 1-\eta _{i+1} \right) \cdot a_1},i=2,3,4,...
+$$
+$$
+d_1=\frac{\left( 1-\eta _2 \right) \cdot 2\left( a_1\cdot \left( i-1 \right) \cdot d+b_1 \right) \cdot \sin \left( 150-\gamma _0 \right)}{\cos \gamma _0}
+$$
+$$
+\eta _i=1-\frac{d_{i-1}\cos \gamma _0}{2\left( a_1\cdot \sum_{k=1}^{i-1}{d_k}+b_1 \right) \cdot \sin \left( 150-\gamma _0 \right)},i=2,3,4,...
+$$
+% $$
+% n_{\varparallel}=\lfloor \frac{2\times 1852}{{{\sqrt{3}D_0}\Bigg/{\cos \beta}}} \rfloor 
+% $$
+% $$
+% L=4\times 1852n_{\varparallel}
+% $$
+$$
+n_{\bot}=\lfloor \frac{4\times 1852-\sqrt{3}D_{\min}}{d} \rfloor +1
+$$
+$$
+n_{\bot}=\begin{cases}
+	n_{\bot}\,\,, 4\times 1852-\sqrt{3}D_{\min}-n_{\bot}\cdot d<\sqrt{3}D_{\max}\\
+	n_{\bot}+1, else\\
+\end{cases}
+$$
+$$
+L=2\times 1852n_{\bot}
+$$
 \subsection{问题一：多波束测深的覆盖宽度及相邻条带之间重叠率的数学模型}
 根据题意将该问题分为两个步骤。根据问题1的示意图，先建立出距离海域中心点不同距离与海水深度D的表达式，再通过几何变换建立海底覆盖宽度及相邻条带之间重叠率的数学模型。
 \subsubsection{距离海域中心点不同距离与海水深度的表达式的建立}
@@ -500,7 +671,7 @@ f(x) =
 
 \section{参考文献与引用}
 
-参考文献对于一篇正式的论文来说是必不可少的，在建模中重要的参考文献当然应该列出。\LaTeX{}在这方面的功能也是十分强大的，下面进介绍一个比较简单的参考文献制作方法。有兴趣的可以学习 \verb|bibtex| 或 \verb|biblatex| 的使用。
+参考文献\cite[text1]{liuhaiyang2013latex}对于一篇正式的论文来说是\cite[text2]{mathematical-modeling}必不可少的，在建模中重要的参考文献当然应该列出。\LaTeX{}在这方面的功能也是十分强大的，下面进介绍一个比较简单的参考文献制作方法。有兴趣的可以学习 \verb|bibtex| 或 \verb|biblatex| 的使用。
 
 \LaTeX{}的入门书籍可以看《\LaTeX{}入门》\cite{liuhaiyang2013latex}。这是一个简单的引用，用 \verb|\cite{bibkey}| 来完成。要引用成功，当然要维护好 bibitem 了。下面是个简单的例子。
 
