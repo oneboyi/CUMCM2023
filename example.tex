@@ -1,7 +1,7 @@
 % \documentclass{cumcmthesis}
 \documentclass[withoutpreface,bwprint]{cumcmthesis} %去掉封面与编号页，电子版提交的时候使用。
 
-
+\usepackage{amsmath}
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage{url}   % 网页链接
 \usepackage{subcaption} % 子标题
@@ -118,6 +118,25 @@ d和$\eta$可以相互表示，所以最终需要进行优化的参数是$\beta$
     \end{tabular}
 \end{center}
 \section{模型的建立和求解}
+\subsection{公式粘贴}
+$\frac{a}{b}$
+问题一
+$$
+D=70-d_c\tan \left( \alpha \right)
+\\\\
+W=\left( l_{i1}+l_{i2} \right) \cdot \cos \alpha 
+$$
+% \begin{align}
+%     D=70-d_c\tan \left( \alpha \right) 
+%     \\
+    
+%     \\
+%     \frac{l_{i2}}{\sin 60\degree}=\frac{D}{\sin 31.5\degree}
+%     \\
+%     W=\left( l_{i1}+l_{i2} \right) \cdot \cos \alpha 
+%     \\
+%     \eta =1-\frac{d\cdot \cos \alpha}{2\cdot W\cdot \sin 148.5\degree}
+% \end{align}    
 \subsection{问题一：多波束测深的覆盖宽度及相邻条带之间重叠率的数学模型}
 根据题意将该问题分为两个步骤。根据问题1的示意图，先建立出距离海域中心点不同距离与海水深度D的表达式，再通过几何变换建立海底覆盖宽度及相邻条带之间重叠率的数学模型。
 \subsubsection{距离海域中心点不同距离与海水深度的表达式的建立}
