@@ -1,5 +1,172 @@
+插入图片wenti3_1
 如图所示是测量船从东北角开始进行测量的情景，为了讨论方便，对于此图，可以分别从俯视图及垂直测线方向剖面图来进行分析，且用\beta表示法线投影方向与测线方向的顺时针夹角。
-为了后续计算的方便，先求出最深和最浅处的水深\D_min和\D_max
+为了后续计算的方便，先求出最深和最浅处的水深\D_min（即D_0）和\D_max
+插入图片wenti3_2
 在我们的测线设计模型中，由于是从最东北角开始测量，我们首先需要保证最角落可以得到测量，从剖面图来看，至少需要离最角落处最近的点能测量到最东北角，并且多波束换能器的开角已知，这样就可以确定第一条测线，以及对应的深度D_1,根据选取的\beta,第一条测线出发点离最东北角距离也可以确定
+插入图片wenti3_3
 当\beta为0°时，按照最浅处来排布测线，先算出n：即可求出总长度：，当测线为90°时，同样先算出n，再求出长度，公式如下，当测线为斜线的时候，情形稍复杂，需要分成三段进行计算，且根据倾斜角度大小的不同，以0.5为tan值的判断依据，进行形式上不同的计算。第一段是测线的两个端点都在矩形的右上半边，这时候l的长度线性递增，第二段是测线有一段在左下半边，此时长度保持不变，具体的值为。
-在设定d相等时，可以直接用公式求出总长度，在d不相等时，利用程序（描述程序工作过程）进行计数、求总长度。
+在设定d相等时，可以直接用公式求出总长度，在d不相等时，利用程序（描述程序工作过程）进行计数、求总长度
+首先计算最浅处和最深处的水深
+$$
+D_{\min}=D_0=D_c-\sqrt{5}\cdot 1852\cdot \left| \tan \alpha \cdot \cos \left( \mathrm{arc}\tan \frac{1}{2} \right) \right|
+$$
+$$
+D_{\max}=D_c+\sqrt{5}\cdot 1852\cdot \left| \tan \alpha \cdot \cos \left( \mathrm{arc}\tan \frac{1}{2} \right) \right|
+$$
+然后计算$\beta$一定时的斜率
+$$
+\tan \gamma _0=\left| \tan \alpha \cdot \sin \left( 180^{\circ}-\beta \right) \right|
+$$
+D_1,W_1是确定的
+$$
+D_1=D_0+\sqrt{3}D_0\cdot \tan \gamma _0
+$$
+$$
+W_1=D_1\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+在等间距假设下，可以依次求出D_2,D_3,D_4,...
+$$
+D_2=D_1+d\cdot \tan \gamma _0
+$$
+$$
+W_2=D_2\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+D_i=D_1+\left( i-1 \right) \cdot d\cdot \tan \gamma _0, i=2,3,4,...
+$$
+$$
+W_i=D_i\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+W_i=\left( D_1+\left( i-1 \right) \cdot d\cdot \tan \gamma _0 \right) \cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+在W_i中提取常数
+$$
+a_1=\tan \gamma _0\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+$$
+b_1=D_1\cdot \sin 60^{\circ}\cdot \cos \gamma _0\left( \frac{1}{\sin \left( \gamma _0+30^{\circ} \right)}+\frac{1}{\sin \left( 30^{\circ}-\gamma _0 \right)} \right) 
+$$
+可以根据d求出每个eta
+$$
+\eta_i=1-\frac{d\cos \gamma _0}{2\left( a_1\cdot \left( i-1 \right) \cdot d+b_1 \right) \cdot \sin \left( 150-\gamma _0 \right)},i=2,3,4,...
+$$
+满足
+$$
+\eta _1\geqslant 0.1,\eta _n\leqslant 0.2
+$$
+考虑非等间距情形
+在计算长度时，先计算
+$$
+d_I=\frac{\sqrt{3}D_0}{\left| \cos \beta \right|}
+$$
+然后算测线条数
+$$
+n_I=\lfloor \frac{2\times 1852-d_I}{\small{{{d}\Bigg/{\left| \cos \beta \right|}}}} \rfloor +1
+$$
+第一条测线长度为
+$$
+l_1=\frac{d_I}{\left| \sin \beta \right|}=\frac{\sqrt{3}D_0}{\left| \sin \beta \right|\cdot \left| \cos \beta \right|}
+$$
+变化值为
+$$
+\varDelta l_Ⅰ=d\cdot \left( \left| \tan \beta \right|+\left| \cot \beta \right| \right) 
+$$
+第一阶段长度为：
+当角度比较大的时候
+$$
+L_Ⅰ=\sum_{i=1}^{n_Ⅰ}{l_i}=n_Ⅰ\cdot l_1+\frac{n_Ⅰ\cdot \left( n_Ⅰ-1 \right)}{2}\cdot \varDelta l_Ⅰ
+$$
+当角度比较小的时候：
+$$
+L_Ⅰ=\frac{\left( 2\sqrt{3}D_0+\left( n_Ⅰ-1 \right) \cdot d \right) n_Ⅰ}{\left| \sin \left( 2\beta \right) \right|}
+$$
+同理可以求第二阶段的若干参数
+$$
+d_Ⅱ=4\times 1852-\frac{\sqrt{3}D_0}{\left| \sin \beta \right|}-n_I\cdot \frac{d}{\left| \sin \beta \right|}
+$$
+$$
+d_Ⅱ=2\times 1852-\frac{\sqrt{3}D_0}{\left| \cos \beta \right|}-n_I\cdot \frac{d}{\left| \cos \beta \right|}
+$$
+$$
+n_Ⅱ=\lfloor \frac{d_Ⅱ}{\small{{{d}\Bigg/{\left| \sin \beta \right|}}}} \rfloor +1
+$$
+$$
+n_Ⅱ=\lfloor \frac{d_Ⅱ}{\small{{{d}\Bigg/{\left| \cos \beta \right|}}}} \rfloor +1
+$$
+$$
+L_{II}=n_Ⅱ\cdot \frac{2\times 1852}{\left| \sin \beta \right|}
+$$
+$$
+L_{II}=n_Ⅱ\cdot \frac{4\times 1852}{\left| \cos \beta \right|}
+$$
+同理计算第三阶段，第三阶段结束条件需要同时判断两边
+$$
+d_Ⅲ=\left| \cot \beta \right|\cdot \left( n_Ⅱ\cdot \frac{d}{\left| \sin \beta \right|}-d_Ⅱ \right) 
+$$
+$$
+d_Ⅲ=\left| \tan \beta \right|\cdot \left( n_Ⅱ\cdot \frac{d}{\left| \cos \beta \right|}-d_Ⅱ \right) 
+$$
+$$
+n_Ⅲ=\lfloor \frac{2\times 1852-d_Ⅲ}{{{d}\Bigg/{\left| \cos \beta \right|}}} \rfloor +1
+$$
+$$
+n_Ⅲ=\lfloor \frac{4\times 1852-d_Ⅲ}{{{d}\Bigg/{\left| \sin \beta \right|}}} \rfloor +1
+$$
+$$
+l_{n_Ⅰ+n_Ⅱ+1}=\frac{2\times 1852-d_Ⅲ}{\left| \sin \beta \right|}
+$$
+$$
+l_{n_Ⅰ+n_Ⅱ+1}=\frac{2\times 1852-d_Ⅲ}{\left| \sin \beta \right|}
+$$
+$$
+\varDelta l_Ⅲ=-d\cdot \left( \left| \tan \beta \right|+\left| \cot \beta \right| \right) 
+$$
+$$
+l_{n_Ⅰ+n_Ⅱ+i}=l_{n_Ⅰ+n_Ⅱ+1}+\left( i-1 \right) \cdot \varDelta l_Ⅲ
+$$
+$$
+L_Ⅲ=n_Ⅲ\cdot l_{n_Ⅰ+n_Ⅱ+1}+\frac{n_Ⅲ\cdot \left( n_Ⅲ-1 \right)}{2}\cdot \varDelta l_Ⅲ
+$$
+$$
+n_Ⅲ=\begin{cases}
+	n_Ⅲ, 2\times 1852-d_Ⅲ-\left( n_Ⅲ-1 \right) \cdot \frac{d}{\left| \cos \beta \right|}<\frac{\sqrt{3}D_{\max}}{\cos \beta}\\
+	n_Ⅲ+1, else\\
+\end{cases}
+$$
+% $$
+% L_Ⅲ=\left\\begin{array}{l}
+% 	L_Ⅲ, 2\times 1852-d_Ⅲ-\left( n_Ⅲ-1 \right) \cdot \frac{d}{\left| \cos \beta \right|}<\frac{\sqrt{3}D_{\max}}{\cos \beta}\\
+% 	L_Ⅲ+\frac{\sqrt{3}D_{\max}}{\left| \sin \beta \right|\left| \cos \beta \right|}, else\\
+% \end{array} \right. 
+% $$
+$$
+d_i=\frac{2\left( a_1\cdot b_1\cdot \sum_{k=1}^{i-1}{d_k} \right) \sin \left( 150^{\circ}-\gamma _0 \right)}{\cos \gamma _0-\sin \left( 150^{\circ}-\gamma _0 \right) \cdot 2\left( 1-\eta _{i+1} \right) \cdot a_1},i=2,3,4,...
+$$
+$$
+d_1=\frac{\left( 1-\eta _2 \right) \cdot 2\left( a_1\cdot \left( i-1 \right) \cdot d+b_1 \right) \cdot \sin \left( 150-\gamma _0 \right)}{\cos \gamma _0}
+$$
+\eta是由前一个d决定的
+$$
+\eta _i=1-\frac{d_{i-1}\cos \gamma _0}{2\left( a_1\cdot \sum_{k=1}^{i-1}{d_k}+b_1 \right) \cdot \sin \left( 150-\gamma _0 \right)},i=2,3,4,...
+$$
+当角度为90或者0度时，计算较为简单，为
+% $$
+% n_{\varparallel}=\lfloor \frac{2\times 1852}{{{\sqrt{3}D_0}\Bigg/{\cos \beta}}} \rfloor 
+% $$
+% $$
+% L=4\times 1852n_{\varparallel}
+% $$
+$$
+n_{\bot}=\lfloor \frac{4\times 1852-\sqrt{3}D_{\min}}{d} \rfloor +1
+$$
+$$
+n_{\bot}=\begin{cases}
+	n_{\bot}\,\,, 4\times 1852-\sqrt{3}D_{\min}-n_{\bot}\cdot d<\sqrt{3}D_{\max}\\
+	n_{\bot}+1, else\\
+\end{cases}
+$$
+$$
+L=2\times 1852n_{\bot}
+$$
+我们根据这种计算方法代入遗传算法进行优化，可以得到最终结果如下：
